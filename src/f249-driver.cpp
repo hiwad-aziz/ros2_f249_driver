@@ -1,6 +1,4 @@
-#include <chrono>
 #include <memory>
-#include <string>
 #include <wiringPi.h>
 
 #include "rclcpp/rclcpp.hpp"
@@ -38,7 +36,7 @@ private:
   static void handleInput()
   {
     auto message = std_msgs::msg::Int64();
-    message.data = F249Driver::count_++;
+    message.data = ++F249Driver::count_;
     if (F249Driver::count_ % 10 == 0) {
       RCLCPP_INFO(F249Driver::pointer_to_self_->get_logger(),
                   "Publishing: '%d'",
