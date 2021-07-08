@@ -41,7 +41,7 @@ void F249Driver::handleInput()
     // Update previous time to current time
     F249Driver::previous_time_ = F249Driver::time_;
     // Update tick count
-    F249Driver::previous_count_ = F249Driver::count_++;
+    F249Driver::previous_count_ = F249Driver::count_;
   }
 }
 
