@@ -1,3 +1,6 @@
+#ifndef F249_DRIVER_H
+#define F249_DRIVER_H
+
 #include <chrono>
 
 #include "rclcpp/rclcpp.hpp"
@@ -35,3 +38,5 @@ class F249Driver : public rclcpp::Node {
   int calculateRpm(int dcount, double dt);
   rclcpp::Publisher<std_msgs::msg::Int64>::SharedPtr publisher_;
 };
+
+#endif  // F249_DRIVER_H
