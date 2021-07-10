@@ -15,6 +15,10 @@ Configurable parameters are:
 Build the package in your workspace:
 
     colcon build --packages-select f249-driver
+
+Source setup.bash in your workspace:
+
+    . install/setup.bash
     
 Launch it:
 
