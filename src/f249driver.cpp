@@ -1,9 +1,9 @@
-#include "f249-driver/f249-driver.h"
-
 #include <wiringPi.h>
 
 #include <iostream>
 #include <memory>
+
+#include "f249driver/f249driver.h"
 
 // Static variables and functions definition
 size_t F249Driver::count_{0};

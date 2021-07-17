@@ -6,7 +6,7 @@ This repository contains a ROS2 package that interfaces with the Raspberry Pi GP
 -  [WiringPi](https://github.com/WiringPi/WiringPi/)
 
 ## Setup
-Make sure the configuration parameters in f249-driver.h are set according to your setup.
+Make sure the configuration parameters in f249driver.h are set according to your setup.
 Configurable parameters are:
 - GPIO Pin connected to sensor
 - Minimum time between two published messages
@@ -14,7 +14,7 @@ Configurable parameters are:
 
 Build the package in your workspace:
 
-    colcon build --packages-select f249-driver
+    colcon build --packages-select f249driver
 
 Source setup.bash in your workspace:
 
@@ -22,4 +22,4 @@ Source setup.bash in your workspace:
     
 Launch it:
 
-    ros2 run f249-driver f249-driver
+    ros2 run f249driver f249driver

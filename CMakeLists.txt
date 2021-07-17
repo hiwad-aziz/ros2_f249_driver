@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(f249-driver)
+project(f249driver)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -20,14 +20,17 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_library(wiringPiLib wiringPi)
+find_package(rosidl_default_generators REQUIRED)
 
-add_executable(f249-driver src/f249-driver.cpp)
-ament_target_dependencies(f249-driver rclcpp std_msgs)
-target_link_libraries(f249-driver ${wiringPiLib})
+rosidl_generate_interfaces(f249driver "msg/Rpm.msg")
+
+add_executable(f249_driver src/f249driver.cpp)
+ament_target_dependencies(f249driver rclcpp std_msgs)
+target_link_libraries(f249driver ${wiringPiLib})
 target_include_directories(
-  f249-driver PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-                     $<INSTALL_INTERFACE:include>)
+  f249driver PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+                    $<INSTALL_INTERFACE:include>)
 
-install(TARGETS f249-driver DESTINATION lib/${PROJECT_NAME})
+install(TARGETS f249driver DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
