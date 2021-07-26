@@ -20,11 +20,8 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_library(wiringPiLib wiringPi)
-find_package(rosidl_default_generators REQUIRED)
 
-rosidl_generate_interfaces(f249driver "msg/Rpm.msg")
-
-add_executable(f249_driver src/f249driver.cpp)
+add_executable(f249driver src/f249driver.cpp)
 ament_target_dependencies(f249driver rclcpp std_msgs)
 target_link_libraries(f249driver ${wiringPiLib})
 target_include_directories(
