@@ -1,9 +1,9 @@
+#include "f249driver/f249driver.h"
+
 #include <wiringPi.h>
 
 #include <iostream>
 #include <memory>
-
-#include "f249driver/f249driver.h"
 
 // Static variables and functions definition
 size_t F249Driver::count_{0};
@@ -15,12 +15,19 @@ F249Driver* F249Driver::pointer_to_self_{nullptr};
 // Constructor
 F249Driver::F249Driver() : Node("f249publisher")
 {
+  // Declare parameters and create publisher
+  this->declare_parameter<int>("pin", 4);
+  this->declare_parameter<int>("num_slots", 20);
+  this->declare_parameter<double>("min_publish_time", 0.5);
+  pin_ = this->get_parameter("pin").as_int();
+  num_slots_ = this->get_parameter("num_slots").as_int();
+  min_publish_time_ = this->get_parameter("min_publish_time").as_double();
   publisher_ = this->create_publisher<std_msgs::msg::Int64>("f249", 10);
 
   // GPIO and interrupt setup
   wiringPiSetupGpio();
-  pinMode(kPin, INPUT);
-  wiringPiISR(kPin, INT_EDGE_FALLING, F249Driver::handleInput);
+  pinMode(pin_, INPUT);
+  wiringPiISR(pin_, INT_EDGE_FALLING, F249Driver::handleInput);
 }
 
 // Callback function for interrupt
@@ -32,7 +39,7 @@ void F249Driver::handleInput()
   std::chrono::duration<double> dt = F249Driver::time_ - F249Driver::previous_time_;
   ++F249Driver::count_;
   // Only publish every 0.5s to get a better average estimate of the RPM
-  if (dt.count() > kMinPublishTime) {
+  if (dt.count() > pointer_to_self_->min_publish_time_) {
     // Fill message and publish
     message.data = pointer_to_self_->calculateRpm(F249Driver::count_ - F249Driver::previous_count_,
                                                   dt.count());
@@ -48,7 +55,7 @@ void F249Driver::handleInput()
 int F249Driver::calculateRpm(int dcount, double dt)
 {
   if (dt != 0) {
-    return static_cast<double>(dcount) / (kNumSlots * (dt / 60));
+    return static_cast<double>(dcount) / (num_slots_ * (dt / 60));
   }
   return 0;
 }

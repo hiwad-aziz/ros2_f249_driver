@@ -9,14 +9,6 @@
 using Clock = std::chrono::high_resolution_clock;
 using TimePoint = std::chrono::time_point<Clock>;
 
-// Configuration parameters
-// Broadcom GPIO pin number
-constexpr unsigned int kPin{4};
-// Number of wheel encoder slots
-constexpr unsigned int kNumSlots{20};
-// Minimum publish time
-constexpr float kMinPublishTime{0.5};
-
 class F249Driver : public rclcpp::Node {
  public:
   F249Driver();
@@ -37,6 +29,9 @@ class F249Driver : public rclcpp::Node {
   static void handleInput();
   int calculateRpm(int dcount, double dt);
   rclcpp::Publisher<std_msgs::msg::Int64>::SharedPtr publisher_;
+  int pin_;
+  int num_slots_;
+  double min_publish_time_;
 };
 
 #endif  // F249_DRIVER_H

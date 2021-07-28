@@ -1,0 +1,8 @@
+f249driver_node:
+  ros__parameters:
+    # BCM pin of F249 sensor
+    pin: 20
+    # Number of slots of encoder wheel
+    num_slots: 20
+    # Minimum publish time
+    min_publish_time: 0.5

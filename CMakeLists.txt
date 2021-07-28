@@ -29,5 +29,6 @@ target_include_directories(
                     $<INSTALL_INTERFACE:include>)
 
 install(TARGETS f249driver DESTINATION lib/${PROJECT_NAME})
+install(DIRECTORY launch params DESTINATION share/${PROJECT_NAME}/)
 
 ament_package()
